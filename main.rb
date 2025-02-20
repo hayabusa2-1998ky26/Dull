@@ -1,5 +1,9 @@
 require 'io/console'
 
+$Japanese = ["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "操作方法", "移動", "決定", "本当に終了しますか？", "終了しました", "言語 : 日本語"]
+$English = ["\"Dull\" This is a maze game where you escape from a labyrinth.", "Way to play", "Move", "Deside", "Are you sure you want to quit?", "Ended", "Language : English"]
+$words = [$English, $Japanese]
+
 def clean
   puts "\e[0m\e[H\e[2J", ""
 end
@@ -8,7 +12,7 @@ def pass
   n = 0
 end
 
-def screen_convert(putter)
+def screen_convert_to_blank(putter)
   clean
   for y in 0..11 + 2
     for x in 0..34
@@ -21,6 +25,33 @@ def screen_convert(putter)
     end
     clean
     puts putter
+    sleep(0.05)
+  end
+end
+
+def screen_convert_from_blank(inter)
+  clean
+  putter = []
+  for y in 0..11
+    putter.push([])
+    for x in 0..34
+      putter[y].push(" ")
+    end
+  end
+
+  for y in 0..11 + 2
+    for x in 0..34
+      if y > 1
+        putter[y - 2][x] = inter[y - 2][x]
+      end
+      if y < 11
+        putter[y][x] = "■"
+      end
+    end
+    clean
+    for y in 0..11
+      puts putter[y].join
+    end
     sleep(0.05)
   end
 end
@@ -72,28 +103,58 @@ def start
         when 1
           clean
           puts("<About Game>", 
-          "Dull これは迷宮から脱出する迷路ゲームです。", 
+          "#{$words[$language][0]}", 
           "", 
-          "操作方法:", 
-          "移動 : WASD", 
-          "決定 : space", 
+          "#{$words[$language][1]}:", 
+          "#{$words[$language][2]} : WASD", 
+          "#{$words[$language][3]} : space", 
           "", 
           "> Exit")
           wait_for_space
         when 2
+          up_down_status = 1
           clean
           puts("<Settings>", 
-          "~~~未開発~~~",
-          "", 
-          "> Exit")
-          wait_for_space
+          "",
+          "> #{$words[$language][6]}", 
+          "  Exit")
+          while true
+            key = keyin
+            clean
+            if key == "w"
+              puts("<Settings>", 
+              "",
+              "> #{$words[$language][6]}", 
+              "  Exit")
+              up_down_status = 1
+            elsif key == "s"
+              puts("<Settings>", 
+              "",
+              "  #{$words[$language][6]}", 
+              "> Exit")
+              up_down_status = 0
+            elsif key == "space"
+              if up_down_status == 1
+                $language += 1
+                if $language == $words.length
+                  $language = 0
+                end
+                puts("<Settings>", 
+                "",
+                "> #{$words[$language][6]}", 
+                "  Exit")
+              else
+                break
+              end
+            end
+          end
         when 3
           $exiter = 0
           key = ""
           while key != "space"
             clean
             puts("<Exit>", 
-            "本当に終了しますか？", 
+            "#{$words[$language][4]}", 
             "")
             if key == "w"
               $exiter = 1
@@ -112,13 +173,14 @@ def start
         if $exiter == 1
           clean
           puts "<Exit>"
-          puts "終了しました。"
+          puts "#{$words[$language][5]}"
           exit
         end
       end
     end
   end
 end
+$language = 1
 
 def make_maze(x, y)
   maze = []
@@ -162,5 +224,37 @@ end
 $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
 start
 putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
-screen_convert(putter)
+screen_convert_to_blank(putter)
+clean
+puts [""] * 11 + [" " * 20 + "Loading..."]
 nx, ny = 1, 1
+cx, cy = 0, 0
+maze = make_maze(101, 101)
+inter = []
+for y in 0..11
+  putter = ""
+  for x in 0..34
+    if maze[y][x] == 1
+      putter += "■"
+    else
+      putter += "□"
+    end
+  end
+  inter.push(putter)
+end
+screen_convert_from_blank(inter)
+while true
+  clean
+  for y in 0..11
+    putter = ""
+    for x in 0..34
+      if maze[y][x] == 1
+        putter += "■"
+      else
+        putter += "□"
+      end
+    end
+    puts putter
+  end
+  key = keyin
+end
