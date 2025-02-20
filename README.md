@@ -2,4 +2,4 @@
   Move : WASD  
   Decide : space  
   
-  This is unfinished yet.
+  This is not finished yet.
