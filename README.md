@@ -1,3 +1,4 @@
-|| Way to play
-  Move : WASD
-  Decide : space
+|| Way to play  
+  Move : WASD  
+  Decide : space  
+  
