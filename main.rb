@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = ["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "操作方法", "移動", "決定", "本当に終了しますか？", "終了しました", "言語 : 日本語"]
-$English = ["\"Dull\" This is a maze game where you escape from a labyrinth.", "Way to play", "Move", "Deside", "Are you sure you want to quit?", "Ended", "Language : English"]
+$Japanese = ["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""]]
+$English = ["\"Dull\" This is a maze game where you escape from a labyrinth.", "<Way to play>", "Move  ", "Deside", "Are you sure you want to quit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""]]
 $words = [$English, $Japanese]
 
 def clean
@@ -102,15 +102,37 @@ def start
           break
         when 1
           clean
-          puts("<About Game>", 
+          cutter = 0
+          putter_hozon = ["<About Game>", 
           "#{$words[$language][0]}", 
           "", 
-          "#{$words[$language][1]}:", 
-          "#{$words[$language][2]} : WASD", 
-          "#{$words[$language][3]} : space", 
+          *$words[$language][11], 
           "", 
-          "> Exit")
-          wait_for_space
+          "#{$words[$language][1]}", 
+          "#{$words[$language][2]} : WASD #{$words[$language][10]}", 
+          "#{$words[$language][3]} : Space #{$words[$language][9]}", 
+          "#{$words[$language][7]} : E #{$words[$language][9]}", 
+          "#{$words[$language][8]} : R #{$words[$language][9]}", 
+          "> Exit"]
+          key = ""
+          while key != "space"
+            putter = putter_hozon.clone
+            if cutter != 0
+              putter[0 + cutter] = "↑   ↑   ↑   ↑"
+            end
+            if cutter != putter.length - 12
+              putter[11 + cutter] = "↓   ↓   ↓   ↓"
+            end
+            clean
+            puts putter[cutter..11 + cutter]
+            key = keyin
+            if key == "w" && cutter != 0
+              cutter -= 1
+            end
+            if key == "s" && cutter != putter.length - 12
+              cutter += 1
+            end
+          end
         when 2
           up_down_status = 1
           clean
@@ -180,7 +202,7 @@ def start
     end
   end
 end
-$language = 1
+$language = 0
 
 def make_maze(x, y)
   maze = []
@@ -218,43 +240,90 @@ def make_maze(x, y)
     next_plot = next_plots[rand(next_plots.length)]
     mx, my = next_plot[0], next_plot[1]
   end
+  maze[-2][-2] = 9
   return maze
 end
 
-$dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
-start
-putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
-screen_convert_to_blank(putter)
-clean
-puts [""] * 11 + [" " * 20 + "Loading..."]
-nx, ny = 1, 1
-cx, cy = 0, 0
-maze = make_maze(101, 101)
-inter = []
-for y in 0..11
-  putter = ""
-  for x in 0..34
-    if maze[y][x] == 1
-      putter += "■"
-    else
-      putter += "□"
-    end
-  end
-  inter.push(putter)
-end
-screen_convert_from_blank(inter)
-while true
-  clean
-  for y in 0..11
+def screen(maze, nx, ny, cx, cy)
+  inter = []
+  for y in cy..11 + cy
     putter = ""
-    for x in 0..34
-      if maze[y][x] == 1
-        putter += "■"
+    for x in cx..24 + cx
+      if x == nx && y == ny
+        putter += "@"
       else
-        putter += "□"
+        if (nx - x).abs > 6 or (ny - y).abs > 3
+          putter += "-"
+        else
+          if maze[y][x] == 9
+            putter += "\#"
+          elsif maze[y][x] == 1
+            putter += "■"
+          else
+            putter += "□"
+          end
+        end
       end
     end
-    puts putter
+    putter += " :"
+    inter.push(putter)
   end
-  key = keyin
+  puts inter
+  return inter
+end
+
+while true
+  $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
+  start
+  putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
+  screen_convert_to_blank(putter)
+  clean
+  puts [""] * 11 + [" " * 20 + "Loading..."]
+  nx, ny = 1, 1
+  cx, cy = 0, 0
+  maze = make_maze(31, 19)
+  inter = screen(maze, nx, ny, cx, cy)
+  screen_convert_from_blank(inter)
+  while true
+    if nx < 12
+      cx = 0
+    elsif nx >= maze[0].length - 12
+      cx = maze[0].length - 25
+    else
+      cx = nx - 12
+    end
+    if ny < 6
+      cy = 0
+    elsif ny >= maze.length - 6
+      cy = maze.length - 12
+    else
+      cy = ny - 6
+    end
+    # if nx > maze[0].length - 6
+    #   nx = maze[0].length - 6
+    # end
+    # if ny > maze.length - 6
+    #   ny = maze.length - 6
+    # end
+    clean
+    inter = screen(maze, nx, ny, cx, cy)
+    if nx == maze[0].length - 2 && ny == maze.length - 2
+      break
+    end
+    key = keyin
+    if key == "w" && maze[ny - 1][nx] != 1
+      ny -= 1
+    elsif key == "s" && maze[ny + 1][nx] != 1
+      ny += 1
+    elsif key == "a" && maze[ny][nx - 1] != 1
+      nx -= 1
+    elsif key == "d" && maze[ny][nx + 1] != 1
+      nx += 1
+    end
+  end
+  sleep(0.5)
+  screen_convert_to_blank(inter)
+  $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
+  putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
+  screen_convert_from_blank(putter)
 end
