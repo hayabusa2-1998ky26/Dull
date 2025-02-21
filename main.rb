@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"]]
-$English = [["\"Dull\" This is a maze game where", " you escape from a labyrinth."], "<Way to play>", "Move  ", "Deside", "Are you sure you want to quit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"]]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了する", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "]]
+$English = [["\"Dull\" This is a maze game where", " you escape from a labyrinth."], "<Way to play>", "Move  ", "Deside", "Are you sure you want to exit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "]]
 $words = [$English, $Japanese]
 
 def clean
@@ -189,11 +189,11 @@ def start
               $exiter = 0
             end
             if $exiter == 1
-              puts "> Yes"
-              puts "  No"
+              puts "> #{$words[$language][15]}"
+              puts "  #{$words[$language][16]}"
             else
-              puts "  Yes"
-              puts "> No"
+              puts "  #{$words[$language][15]}"
+              puts "> #{$words[$language][16]}"
             end
             key = keyin
           end
@@ -276,6 +276,8 @@ def screen(maze, nx, ny, cx, cy)
   return inter
 end
 
+ender = 0
+retryer = 0
 while true
   $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
   start
@@ -289,6 +291,7 @@ while true
   puts [""] * 11 + [" " * 19 + "Game Start!"]
   sleep(0.5)
   inter = screen(maze, nx, ny, cx, cy)
+  inter = inter.map{|x| x + " " * 8}
   screen_convert_from_blank(inter)
   while true
     if nx < 12
@@ -312,24 +315,86 @@ while true
     #   ny = maze.length - 6
     # end
     clean
+    inter_hozon = inter.clone
     inter = screen(maze, nx, ny, cx, cy)
+    i = -1
+    inter = inter.map do |x|
+      i = i + 1
+      x = x + inter_hozon[i][27..34]
+    end
     puts inter
     if nx == maze[0].length - 2 && ny == maze.length - 2
       break
     end
     key = keyin
-    if key == "w" && maze[ny - 1][nx] != 1
+    if key == "w" && maze[ny - 1][nx] != 1 && ender == 0 && retryer == 0
       ny -= 1
-    elsif key == "s" && maze[ny + 1][nx] != 1
+    elsif key == "s" && maze[ny + 1][nx] != 1 && ender == 0 && retryer == 0
       ny += 1
-    elsif key == "a" && maze[ny][nx - 1] != 1
+    elsif key == "a" && maze[ny][nx - 1] != 1 && ender == 0 && retryer == 0
       nx -= 1
-    elsif key == "d" && maze[ny][nx + 1] != 1
+    elsif key == "d" && maze[ny][nx + 1] != 1 && ender == 0 && retryer == 0
       nx += 1
-    elsif key == "e"
-      inter[0], inter[1], inter[2] = $words[$language][4]
-    elsif key == "r"
-      pass
+    elsif key == "e" || ender != 0 && retryer == 0
+      if ender == 0
+        ender = 2
+      elsif key == "s"
+        ender = 2
+      elsif key == "w"
+        ender = 1
+      elsif key == "space"
+        if ender == 1
+          ender = 0
+          break
+        else
+          for i in 0..12 - 1
+            inter[i][27..34] = " " * 7
+          end
+        end
+        ender = 0
+      end
+      if ender != 0
+        for i in 0..$words[$language][14].length - 1
+          inter[i][27..34] = $words[$language][14][i]
+        end
+        if ender == 1
+          inter[10][27..34] = "> #{$words[$language][15]}"
+          inter[11][27..34] = "  #{$words[$language][16]}"
+        else
+          inter[10][27..34] = "  #{$words[$language][15]}"
+          inter[11][27..34] = "> #{$words[$language][16]}"
+        end
+      end
+    elsif key == "r" || ender == 0 && retryer != 0
+      if retryer == 0
+        retryer = 2
+      elsif key == "s"
+        retryer = 2
+      elsif key == "w"
+        retryer = 1
+      elsif key == "space"
+        if retryer == 1
+          retryer = 0
+          nx, ny = 1, 1
+        else
+          for i in 0..12 - 1
+            inter[i][27..34] = " " * 7
+          end
+        end
+        retryer = 0
+      end
+      if retryer != 0
+        for i in 0..$words[$language][17].length - 1
+          inter[i][27..34] = $words[$language][17][i]
+        end
+        if retryer == 1
+          inter[10][27..34] = "> #{$words[$language][15]}"
+          inter[11][27..34] = "  #{$words[$language][16]}"
+        else
+          inter[10][27..34] = "  #{$words[$language][15]}"
+          inter[11][27..34] = "> #{$words[$language][16]}"
+        end
+      end
     end
   end
   sleep(0.5)
