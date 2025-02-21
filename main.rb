@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます"]
-$English = [["\"Dull\" This is a maze game where", " you escape from a labyrinth."], "<Way to play>", "Move  ", "Deside", "Are you sure you want to quit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll"]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"]]
+$English = [["\"Dull\" This is a maze game where", " you escape from a labyrinth."], "<Way to play>", "Move  ", "Deside", "Are you sure you want to quit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"]]
 $words = [$English, $Japanese]
 
 def clean
@@ -78,16 +78,20 @@ end
 
 def start
   clean
-  $starter = ["Start Game", "About Game", "Settings  ", "Exit      "]
   cursol_status = 0
+  starter_hozon = []
+  for i in 0..$words.length - 1
+    starter_hozon.push($words[i][13].clone)
+  end
   while true
     clean
+    $starter = $words[$language][13].clone
     puts $dull_letter
     for i in 0..$starter.length - 1
       if i == cursol_status
-        $starter[i] = "           > " + $starter[i].slice(-10..-1)
+        $starter[i] = "           > " + $starter[i].slice(starter_hozon[$language][i].length * -1..-1)
       else
-        $starter[i] = "             " + $starter[i].slice(-10..-1)
+        $starter[i] = "             " + $starter[i].slice(starter_hozon[$language][i].length * -1..-1)
       end
     end
     puts "", $starter
@@ -103,7 +107,7 @@ def start
         when 1
           clean
           cutter = 0
-          putter_hozon = ["<About the Game>", 
+          putter_hozon = ["<#{$words[$language][13][1]}>", 
           *$words[$language][0], 
           "", 
           *$words[$language][11], 
@@ -114,7 +118,7 @@ def start
           "#{$words[$language][7]} : E #{$words[$language][9]}", 
           "#{$words[$language][8]} : R #{$words[$language][9]}", 
           "", 
-          "> Exit"]
+          "> #{$words[$language][13][3]}"]
           key = ""
           while key != "space"
             putter = putter_hozon.clone
@@ -137,24 +141,24 @@ def start
         when 2
           up_down_status = 1
           clean
-          puts("<Settings>", 
+          puts("<#{$words[$language][13][2]}>", 
           "",
           "> #{$words[$language][6]}", 
-          "  Exit")
+          "  #{$words[$language][13][3]}")
           while true
             key = keyin
             clean
             if key == "w"
-              puts("<Settings>", 
+              puts("<#{$words[$language][13][2]}>", 
               "",
               "> #{$words[$language][6]}", 
-              "  Exit")
+              "  #{$words[$language][13][3]}")
               up_down_status = 1
             elsif key == "s"
-              puts("<Settings>", 
+              puts("<#{$words[$language][13][2]}>", 
               "",
               "  #{$words[$language][6]}", 
-              "> Exit")
+              "> #{$words[$language][13][3]}")
               up_down_status = 0
             elsif key == "space"
               if up_down_status == 1
@@ -162,10 +166,10 @@ def start
                 if $language == $words.length
                   $language = 0
                 end
-                puts("<Settings>", 
+                puts("<#{$words[$language][13][2]}>", 
                 "",
                 "> #{$words[$language][6]}", 
-                "  Exit")
+                "  #{$words[$language][13][3]}")
               else
                 break
               end
@@ -176,7 +180,7 @@ def start
           key = ""
           while key != "space"
             clean
-            puts("<Exit>", 
+            puts("<#{$words[$language][13][3]}>", 
             "#{$words[$language][4]}", 
             "")
             if key == "w"
@@ -195,7 +199,7 @@ def start
           end
         if $exiter == 1
           clean
-          puts "<Exit>"
+          puts "<#{$words[$language][13][3]}>"
           puts "#{$words[$language][5]}"
           exit
         end
@@ -281,7 +285,9 @@ while true
   puts [""] * 11 + [" " * 20 + "Loading..."]
   nx, ny = 1, 1
   cx, cy = 0, 0
-  maze = make_maze(31, 19)
+  maze = make_maze(37, 23)
+  puts [""] * 11 + [" " * 19 + "Game Start!"]
+  sleep(0.5)
   inter = screen(maze, nx, ny, cx, cy)
   screen_convert_from_blank(inter)
   while true
@@ -321,7 +327,7 @@ while true
     elsif key == "d" && maze[ny][nx + 1] != 1
       nx += 1
     elsif key == "e"
-      pass
+      inter[0], inter[1], inter[2] = $words[$language][4]
     elsif key == "r"
       pass
     end
