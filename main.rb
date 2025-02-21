@@ -103,7 +103,7 @@ def start
         when 1
           clean
           cutter = 0
-          putter_hozon = ["<About Game>", 
+          putter_hozon = ["<About the Game>", 
           *$words[$language][0], 
           "", 
           *$words[$language][11], 
