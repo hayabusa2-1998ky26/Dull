@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = ["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""]]
-$English = ["\"Dull\" This is a maze game where you escape from a labyrinth.", "<Way to play>", "Move  ", "Deside", "Are you sure you want to quit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""]]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます"]
+$English = [["\"Dull\" This is a maze game where", " you escape from a labyrinth."], "<Way to play>", "Move  ", "Deside", "Are you sure you want to quit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll"]
 $words = [$English, $Japanese]
 
 def clean
@@ -67,7 +67,7 @@ end
 def keyin
   $stdin.raw do |io|
     ch = io.readbyte
-    keyinboards = [["a", "s", "d", "w", "space", "enter"], [97, 115, 100, 119, 32, 13]]
+    keyinboards = [["a", "s", "d", "w", "space", "enter", "e", "r"], [97, 115, 100, 119, 32, 13, 101, 114]]
     if keyinboards[1].include?(ch.to_i)
       return keyinboards[0][keyinboards[1].index(ch.to_i)]
     else
@@ -104,7 +104,7 @@ def start
           clean
           cutter = 0
           putter_hozon = ["<About Game>", 
-          "#{$words[$language][0]}", 
+          *$words[$language][0], 
           "", 
           *$words[$language][11], 
           "", 
@@ -113,15 +113,16 @@ def start
           "#{$words[$language][3]} : Space #{$words[$language][9]}", 
           "#{$words[$language][7]} : E #{$words[$language][9]}", 
           "#{$words[$language][8]} : R #{$words[$language][9]}", 
+          "", 
           "> Exit"]
           key = ""
           while key != "space"
             putter = putter_hozon.clone
             if cutter != 0
-              putter[0 + cutter] = "↑   ↑   ↑   ↑"
+              putter[0 + cutter] = "↑   ↑   ↑   ↑  (#{$words[$language][12]})"
             end
             if cutter != putter.length - 12
-              putter[11 + cutter] = "↓   ↓   ↓   ↓"
+              putter[11 + cutter] = "↓   ↓   ↓   ↓  (#{$words[$language][12]})"
             end
             clean
             puts putter[cutter..11 + cutter]
@@ -268,7 +269,6 @@ def screen(maze, nx, ny, cx, cy)
     putter += " :"
     inter.push(putter)
   end
-  puts inter
   return inter
 end
 
@@ -307,6 +307,7 @@ while true
     # end
     clean
     inter = screen(maze, nx, ny, cx, cy)
+    puts inter
     if nx == maze[0].length - 2 && ny == maze.length - 2
       break
     end
@@ -319,6 +320,10 @@ while true
       nx -= 1
     elsif key == "d" && maze[ny][nx + 1] != 1
       nx += 1
+    elsif key == "e"
+      pass
+    elsif key == "r"
+      pass
     end
   end
   sleep(0.5)
