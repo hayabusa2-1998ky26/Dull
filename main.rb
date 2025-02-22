@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。", "(アイテムは未実装です。)"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了する", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "]]
-$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal.", "(Item is not yet implemented.)"], "<Way to play>", "Move  ", "Deside", "Are you sure you want to exit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "]]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。", "(アイテムは未実装です。)"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了する", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", "秒", "スペースキーでコンティニュー"]
+$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal.", "(Item is not yet implemented.)"], "<Way to play>", "Move  ", "Deside", "Are you sure you want to exit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", "s", "Space key to continue."]
 $words = [$English, $Japanese]
 
 def clean
@@ -293,6 +293,7 @@ while true
   inter = screen(maze, nx, ny, cx, cy)
   inter = inter.map{|x| x + " " * 8}
   screen_convert_from_blank(inter)
+  timer = Time.now
   while true
     if nx < 12
       cx = 0
@@ -400,8 +401,13 @@ while true
       end
     end
   end
+  times = Time.now - timer
   sleep(0.5)
   screen_convert_to_blank(inter)
+  clean
+  puts "#{$words[$language][18]}#{times.round(2)}#{$words[$language][19]}"
+  puts "#{$words[$language][20]}"
+  wait_for_space
   $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
   putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
   screen_convert_from_blank(putter)
