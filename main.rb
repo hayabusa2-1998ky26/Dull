@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了する", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "]]
-$English = [["\"Dull\" This is a maze game where", " you escape from a labyrinth."], "<Way to play>", "Move  ", "Deside", "Are you sure you want to exit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "]]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。", "(アイテムは未実装です。)"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了する", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "]]
+$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal.", "(Item is not yet implemented.)"], "<Way to play>", "Move  ", "Deside", "Are you sure you want to exit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "]]
 $words = [$English, $Japanese]
 
 def clean
@@ -145,20 +145,24 @@ def start
           "",
           "> #{$words[$language][6]}", 
           "  #{$words[$language][13][3]}")
+          key = ""
           while true
-            key = keyin
             clean
-            if key == "w"
+            if up_down_status == 1
               puts("<#{$words[$language][13][2]}>", 
               "",
               "> #{$words[$language][6]}", 
               "  #{$words[$language][13][3]}")
-              up_down_status = 1
-            elsif key == "s"
+            else
               puts("<#{$words[$language][13][2]}>", 
               "",
               "  #{$words[$language][6]}", 
               "> #{$words[$language][13][3]}")
+            end
+            key = keyin
+            if key == "w"
+              up_down_status = 1
+            elsif key == "s"
               up_down_status = 0
             elsif key == "space"
               if up_down_status == 1
@@ -166,10 +170,6 @@ def start
                 if $language == $words.length
                   $language = 0
                 end
-                puts("<#{$words[$language][13][2]}>", 
-                "",
-                "> #{$words[$language][6]}", 
-                "  #{$words[$language][13][3]}")
               else
                 break
               end
@@ -374,8 +374,11 @@ while true
         retryer = 1
       elsif key == "space"
         if retryer == 1
-          retryer = 0
+          retryer = 0 
           nx, ny = 1, 1
+          for i in 0..12 - 1
+            inter[i][27..34] = " " * 7
+          end
         else
           for i in 0..12 - 1
             inter[i][27..34] = " " * 7
