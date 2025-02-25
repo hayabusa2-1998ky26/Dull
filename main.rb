@@ -377,7 +377,6 @@ while true # mainloop
         ender = 1
       elsif key == "space"
         if ender == 1
-          ender = 0
           break
         else
           for i in 0..12 - 1
@@ -522,13 +521,19 @@ while true # mainloop
       maze[ny][nx] = 0
     end
   end
-  times = Time.now - timer
-  sleep(0.5)
-  screen_convert_to_blank(inter)
-  clean
-  puts "#{$words[$language][18]}#{times.round(2)}#{$words[$language][19]}"
-  puts "#{$words[$language][20]}"
-  wait_for_space
+  if ender == 0
+    times = Time.now - timer
+    sleep(0.5)
+    screen_convert_to_blank(inter)
+    clean
+    puts "#{$words[$language][18]}#{times.round(2)}#{$words[$language][19]}"
+    puts "#{$words[$language][20]}"
+    wait_for_space
+  else
+    sleep(0.5)
+    screen_convert_to_blank(inter)
+  end
+  ender = 0
   $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
   putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
   screen_convert_from_blank(putter)
