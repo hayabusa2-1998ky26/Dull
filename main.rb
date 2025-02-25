@@ -1,9 +1,10 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。", "(アイテムは未実装です。)"], "<操作方法>", "移動　　", "決定　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了する", "やり直し", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", "秒", "スペースキーでコンティニュー"]
-$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal.", "(Item is not yet implemented.)"], "<Way to play>", "Move  ", "Deside", "Are you sure you want to exit?", "Ended", "Language : English", "Exit  ", "Retry ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", "s", "Space key to continue."]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。", "(アイテムは未実装です。)"], "<操作方法>", "移動　　　　", "決定　　　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　　　", "やり直し　　", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\"", "アイテム　　: \"+\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", "秒", "スペースキーでコンティニュー", ["発見した", ""], "持ち物を見る", "<持ち物>", ["(持ち物 ", "がありま", "せん)   "], [["ゴールへ", "の方角を", "一度だけ", "示してく", "れます"], ["使った場", "所におい", "て進むべ", "き方向を", "一度だけ", "示してく", "れます"]], ["使う", "捨てる", "やめる"], ["使った", "捨てた", "やめた"]]
+$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal.", "(Item is not yet implemented.)"], "<Way to play>", "Move       ", "Deside     ", "Are you sure you want to exit?", "Ended", "Language : English", "Exit       ", "Retry      ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\"", "Item   : \"+\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", "s", "Space key to continue.", ["You find", "a "], "Check items", "<items> ", ["(There's", "not a", "item)"], [["It shows", "you the ", "directio", "n to the", "goal    ", "once and", "for all."], ["It will ", "show you", "the dire", "ction to", "go once ", "in the  ", "place.  "]], ["Use", "Dispose ", "Exit"], ["Used", "Disposed", "Exited"]]
 $words = [$English, $Japanese]
-
+items_list = [["Exit", "", "compus", "navi"], ["終了", "", "ｺﾝﾊﾟｽ", "ナビ"]] # 6字以内
+$item_numbers = [2, 3]
 def clean
   puts "\e[0m\e[H\e[2J", ""
 end
@@ -67,7 +68,7 @@ end
 def keyin
   $stdin.raw do |io|
     ch = io.readbyte
-    keyinboards = [["a", "s", "d", "w", "space", "enter", "e", "r"], [97, 115, 100, 119, 32, 13, 101, 114]]
+    keyinboards = [["a", "s", "d", "w", "space", "enter", "e", "r", "c"], [97, 115, 100, 119, 32, 13, 101, 114, 99]]
     if keyinboards[1].include?(ch.to_i)
       return keyinboards[0][keyinboards[1].index(ch.to_i)]
     else
@@ -117,6 +118,7 @@ def start
           "#{$words[$language][3]} : Space #{$words[$language][9]}", 
           "#{$words[$language][7]} : E #{$words[$language][9]}", 
           "#{$words[$language][8]} : R #{$words[$language][9]}", 
+          "#{$words[$language][22]} : C #{$words[$language][9]}", 
           "", 
           "> #{$words[$language][13][3]}"]
           key = ""
@@ -207,7 +209,6 @@ def start
     end
   end
 end
-$language = 0
 
 def make_maze(x, y)
   maze = []
@@ -245,7 +246,18 @@ def make_maze(x, y)
     next_plot = next_plots[rand(next_plots.length)]
     mx, my = next_plot[0], next_plot[1]
   end
+  for i in 0..(x * y / 600).to_i
+    maze = put_item(maze, 2, x, y)
+  end
+  for i in 0..(x * y / 600).to_i
+    maze = put_item(maze, 3, x, y)
+  end
   maze[-2][-2] = 9
+  return maze
+end
+
+def put_item(maze, item, ux, uy)
+  maze[rand(1..(uy / 2).to_i) * 2 - 1][rand(1..(ux / 2).to_i) * 2 - 1] = item
   return maze
 end
 
@@ -264,6 +276,8 @@ def screen(maze, nx, ny, cx, cy)
             putter += "\#"
           elsif maze[y][x] == 1
             putter += "■"
+          elsif $item_numbers.include?(maze[y][x])
+            putter += "+"
           else
             putter += "□"
           end
@@ -276,9 +290,28 @@ def screen(maze, nx, ny, cx, cy)
   return inter
 end
 
-ender = 0
-retryer = 0
-while true
+def right_clean(inter)
+  for i in 0..12 - 1
+    inter[i][27..34] = "        "
+  end
+  return inter
+end
+
+def right_screen(inter, rights)
+  for i in 0..rights.length - 1
+    inter[i][27..34] = rights[i]
+  end
+  for i in rights.length..12 - 1
+    inter[i][27..34] = " " * 8
+  end
+  return inter
+end
+
+$language = 0
+while true # mainloop
+  ender = 0
+  retryer = 0
+  items = [2, 3]
   $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
   start
   putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
@@ -295,6 +328,7 @@ while true
   screen_convert_from_blank(inter)
   timer = Time.now
   while true
+    items = items.sort
     if nx < 12
       cx = 0
     elsif nx >= maze[0].length - 12
@@ -309,12 +343,6 @@ while true
     else
       cy = ny - 6
     end
-    # if nx > maze[0].length - 6
-    #   nx = maze[0].length - 6
-    # end
-    # if ny > maze.length - 6
-    #   ny = maze.length - 6
-    # end
     clean
     inter_hozon = inter.clone
     inter = screen(maze, nx, ny, cx, cy)
@@ -330,12 +358,16 @@ while true
     key = keyin
     if key == "w" && maze[ny - 1][nx] != 1 && ender == 0 && retryer == 0
       ny -= 1
+      inter = right_clean(inter)
     elsif key == "s" && maze[ny + 1][nx] != 1 && ender == 0 && retryer == 0
       ny += 1
+      inter = right_clean(inter)
     elsif key == "a" && maze[ny][nx - 1] != 1 && ender == 0 && retryer == 0
       nx -= 1
+      inter = right_clean(inter)
     elsif key == "d" && maze[ny][nx + 1] != 1 && ender == 0 && retryer == 0
       nx += 1
+      inter = right_clean(inter)
     elsif key == "e" || ender != 0 && retryer == 0
       if ender == 0
         ender = 2
@@ -399,6 +431,95 @@ while true
           inter[11][27..34] = "> #{$words[$language][16]}"
         end
       end
+    elsif key == "c"
+      cursol_status = 0
+      while true
+        righter = [$words[$language][23]]
+        items.push(0) # exit
+        if items.length == 1
+          righter += $words[$language][24]
+          righter.push(" >" + $words[$language][7])
+        else
+          for i in 0..[items.length, 10].min - 1
+            if cursol_status == i
+              righter.push("> #{items_list[$language][items[i]]}")
+            else 
+              righter.push("  #{items_list[$language][items[i]]}")
+            end
+          end
+        end
+        items = items[0..-2]
+        inter = right_screen(inter, righter)
+        clean
+        puts inter
+        key = keyin
+        if key == "w" && cursol_status != 0
+          cursol_status -= 1
+        elsif key == "s" && cursol_status != items.length
+          cursol_status += 1
+        elsif key == "space"
+          if cursol_status == items.length + 1 - 1
+            inter = right_clean(inter)
+            break
+          else
+            cursol_status_local = 0
+            cursol_camera = 0
+            while true
+              if cursol_status_local + cursol_camera >= 10
+                cursol_camera += 1
+              end
+              if cursol_status_local - cursol_camera <= -1
+                cursol_camera -= 1
+              end
+              righter = [$words[$language][23]]
+              righter.push(items_list[$language][items[cursol_status]])
+              righter += $words[$language][25][items[cursol_status] - 2]
+              for i in cursol_camera..$words[$language][26].length - 1 + cursol_camera
+                if i == cursol_status_local
+                  righter.push("> " + $words[$language][26][i])
+                else
+                  righter.push("  " + $words[$language][26][i])
+                end
+              end
+              print(righter)
+              inter = right_screen(inter, righter)
+              clean
+              puts inter
+              key = keyin
+              if key == "w" && cursol_status_local != 0
+                cursol_status_local -= 1
+              elsif key == "s" && cursol_status_local != $words[$language][26].length - 1
+                cursol_status_local += 1
+              elsif key == "space"
+                case cursol_status_local
+                  when 0
+                    items.delete_at(cursol_status)
+                    print $words[$language][27][0]
+                    sleep(1)
+                  when 1
+                    items.delete_at(cursol_status)
+                    print $words[$language][27][1]
+                    sleep(1)
+                end
+                break
+              end
+            end
+          end
+        elsif key == "c"
+          inter = right_clean(inter)
+          break
+        end
+      end
+    end
+
+
+    if $item_numbers.include?(maze[ny][nx])
+      for i in 0..$words[$language][21].length - 1 - 1
+        inter[i][27..34] = "#{$words[$language][21][i]}"
+      end
+      inter[$words[$language][21].length - 1][27..34] = "#{$words[$language][21][-1]}" + items_list[$language][maze[ny][nx]]
+      items.push(maze.clone[ny][nx])
+      maze[ny][nx] = 0
     end
   end
   times = Time.now - timer
