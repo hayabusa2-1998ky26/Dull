@@ -1,10 +1,10 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。", "(アイテムは未実装です。)"], "<操作方法>", "移動　　　　", "決定　　　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　　　", "やり直し　　", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\"", "アイテム　　: \"+\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", "秒", "スペースキーでコンティニュー", ["発見した", ""], "持ち物を見る", "<持ち物>", ["(持ち物 ", "がありま", "せん)   "], [["ゴールへ", "の方角を", "一度だけ", "示してく", "れます"], ["使った場", "所におい", "て進むべ", "き方向を", "一度だけ", "示してく", "れます"], ["50回移動", "するまで", "視界が明", "くなりま", "す。"]], ["使う", "捨てる", "やめる"], ["使った", "捨てた", "やめた"]]
-$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal.", "(Item is not yet implemented.)"], "<Way to play>", "Move       ", "Deside     ", "Are you sure you want to exit?", "Ended", "Language : English", "Exit       ", "Retry      ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\"", "Item   : \"+\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", "s", "Space key to continue.", ["You find", "a "], "Check items", "<items> ", ["(There's", "not a", "item)"], [["It shows", "you the ", "directio", "n to the", "goal    ", "once and", "for all."], ["It will ", "show you", "the dire", "ction to", "go once ", "in the  ", "place.  "], ["You can", "see far", "away", "until", "you move", "50times."]], ["Use", "Dump ", "Exit"], ["Used", "Disposed", "Exited"]]
+$Japanese = [["\"Dull\"これは迷宮から脱出する迷路ゲームです。", "スタートは左上で、ゴールは右下にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使してゴールにたどり着きましょう。"], "<操作方法>", "移動　　　　", "決定　　　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　　　", "やり直し　　", "キー", "キー", ["<迷路>", "プレイヤー　: \"@\"", "壁　　　　　: \"■\"", "道　　　　　: \"□\"", "ゴール　　　: \"\#\"", "アイテム　　: \"+\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", ["秒", "分"], "スペースキーでコンティニュー", ["発見した", ""], "持ち物を見る", "<持ち物>", ["(持ち物 ", "がありま", "せん)   "], [["ゴールへ", "の方角を", "一度だけ", "示してく", "れます"], ["使った場", "所におい", "て進むべ", "き方向を", "一度だけ", "示してく", "れます"], ["50回移動", "するまで", "視界が明", "くなりま", "す。"], ["一度だけ", "壁を無視", "して移動", "できます", "。"]], ["使う", "捨てる", "やめる"], ["使った", "捨てた", "やめた"], ["方向を指", "定してス", "ペースキ", "ーを押し", "てくださ", "い。"]]
+$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The start is at the top left and", "the goal is at the bottom right.", "It's dark, so you can only", "see up close.", "Use items to reach the goal."], "<Way to play>", "Move       ", "Deside     ", "Are you sure you want to exit?", "Ended", "Language : English", "Exit       ", "Retry      ", "key", "keys", ["<Maze>", "Player : \"@\"", "Block  : \"■\"", "Route  : \"□\"", "Goal   : \"\#\"", "Item   : \"+\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", ["s", "m"], "Space key to continue.", ["You find", "a "], "Check items", "<items> ", ["(There's", "not a", "item)"], [["It shows", "you the ", "directio", "n to the", "goal    ", "once and", "for all."], ["It will ", "show you", "the dire", "ction to", "go once ", "in the  ", "place.  "], ["You can", "see far", "away", "until", "you move", "50times."], ["You can", "only", "move", "once,", "ignoring", "walls."]], ["Use", "Dump ", "Exit"], ["Used", "Disposed", "Exited"], ["Specify", "a direct", "ion and", "press", "the", "spacebar."]]
 $words = [$English, $Japanese]
-items_list = [["Exit", "", "compus", "navi", "torch"], ["終了", "", "ｺﾝﾊﾟｽ", "ナビ", "松明"]] # 6字以内
-$item_numbers = [2, 3, 4]
+items_list = [["Exit", "", "compus", "navi", "torch", "ladder"], ["終了", "", "ｺﾝﾊﾟｽ", "ナビ", "松明", "はしご"]] # 半角6字以内
+$item_numbers = [2, 3, 4, 5]
 
 def deepcopy(list1)
   return Marshal.load(Marshal.dump(list1))
@@ -251,13 +251,13 @@ def make_maze(x, y)
     next_plot = next_plots[rand(next_plots.length)]
     mx, my = next_plot[0], next_plot[1]
   end
-  for i in 0..(x * y / 900).to_i
+  for i in 0..(x * y / 600).to_i
     maze = put_item(maze, 2, x, y)
   end
-  for i in 0..(x * y / 900).to_i
+  for i in 0..(x * y / 600).to_i
     maze = put_item(maze, 3, x, y)
   end
-  for i in 0..(x * y / 900).to_i
+  for i in 0..(x * y / 600).to_i
     maze = put_item(maze, 4, x, y)
   end
   maze[-2][-2] = 9
@@ -388,12 +388,56 @@ def torch_put_out(torch)
   return torch
 end
 
+def ladder(maze, inter, nx, ny, cx, cy, torch)
+  way = -1
+  wayto = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+  maze_hozon = deepcopy(maze)
+  mazes = [maze_hozon[ny - 1][nx], maze_hozon[ny + 1][nx], maze_hozon[ny][nx - 1], maze_hozon[ny][nx + 1]]
+  while true
+    rights = $words[$language][28]
+    right_clean(inter)
+    inter = right_screen(inter, rights)
+    inter = screen(maze, nx, ny, cx, cy, torch)
+    clean
+    puts inter
+    key = keyin
+    maze[ny - 1][nx] = mazes[0]
+    maze[ny + 1][nx] = mazes[1]
+    maze[ny][nx - 1] = mazes[2]
+    maze[ny][nx + 1] = mazes[3]
+    if key == "w" && ny != 1
+      maze[ny - 1][nx] = "^"
+      way = 0
+    elsif key == "s" && ny != maze.length - 1 - 1
+      maze[ny + 1][nx] = "v"
+      way = 1
+    elsif key == "a" && nx != 1
+      maze[ny][nx - 1] = "<"
+      way = 2
+    elsif key == "d" && nx != maze[ny].length - 1 - 1
+      maze[ny][nx + 1] = ">"
+      way = 3
+    elsif key == "space"
+      maze[ny + wayto[way][1]][nx + wayto[way][0]] = 0
+      break
+    end
+  end
+  maze[ny - 1][nx] = mazes[0]
+  maze[ny + 1][nx] = mazes[1]
+  maze[ny][nx - 1] = mazes[2]
+  maze[ny][nx + 1] = mazes[3]
+  inter = right_clean(inter)
+  nx += wayto[way][0]
+  ny += wayto[way][1]
+  return nx, ny
+end
+
 $language = 0
 while true # mainloop
   torch = 0
   ender = 0
   retryer = 0
-  items = [2, 3, 4]
+  items = [2, 3, 4, 5]
   $dull_letter = [" " * 35, "       ■■■■■          ■■  ■■", "       ■■  ■■         ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■  ■■  ■■ ■■  ■■  ■■", "       ■■■■■    ■■■■  ■■  ■■"]
   start
   putter = $dull_letter + [" " * 35] + $starter.map{|x| x + " " * (35 - x.length)}
@@ -585,6 +629,8 @@ while true # mainloop
                       maze[ny][nx] = navi(maze, nx, ny, goal[0], goal[1])
                     elsif items[cursol_status] == 4
                       torch = 50
+                    elsif items[cursol_status] = 5
+                      nx, ny = ladder(maze, inter, nx, ny, cx, cy, torch)
                     end
                     items.delete_at(cursol_status)
                     inter = right_clean(inter)
@@ -626,7 +672,10 @@ while true # mainloop
     sleep(0.5)
     screen_convert_to_blank(inter)
     clean
-    puts "#{$words[$language][18]}#{times.round(2)}#{$words[$language][19]}"
+    s = times.round(2)
+    m = (s / 60).to_i
+    s = (s % 60).round(2)
+    puts "#{$words[$language][18]}#{m}#{$words[$language][19][1]} #{s}#{$words[$language][19][0]}"
     puts "#{$words[$language][20]}"
     wait_for_space
   else
