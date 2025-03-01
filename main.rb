@@ -1,7 +1,7 @@
 require 'io/console'
 
-$Japanese = [["\"Dull\"これは迷路ゲームです。", "ゴールはランダムな場所にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使して", "ゴールにたどり着きましょう。"], "<操作方法>", "移動　　　　", "決定　　　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　　　", "やり直し　　", "キー", "キー", ["<迷路>", "プレイヤー　: \"%\"", "壁　　　　　: \"\#\"", "道　　　　　: \" \"", "ゴール　　　: \"\$\"", "アイテム　　: \"+\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", ["秒", "分"], "スペースキーでコンティニュー", ["発見した", ""], "持ち物を見る", "<持ち物>", ["(持ち物 ", "がありま", "せん)   "], [["ゴールへ", "の方角を", "一度だけ", "示してく", "れます"], ["使った場", "所におい", "て進むべ", "き方向を", "一度だけ", "示してく", "れます"], ["50回移動", "するまで", "視界が明", "くなりま", "す。"], ["一度だけ", "壁を無視", "して移動", "できます", "。"]], ["使う", "捨てる", "やめる"], ["使った", "捨てた", "やめた"], ["方向を指", "定してス", "ペースキ", "ーを押し", "てくださ", "い。"], ["↓", "→", "↑", "←"], ["ゴールは"], ["スペース", "キーでコ", "ンティニ", "ュー"]]
-$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The goal is at the random place.", "It's dark, so you can only", "see up close.", "Use items to reach the goal."], "<Way to play>", "Move       ", "Deside     ", "Are you sure you want to exit?", "Ended", "Language : English", "Exit       ", "Retry      ", "key", "keys", ["<Maze>", "Player : \"%\"", "Block  : \"\#\"", "Route  : \" \"", "Goal   : \"\$\"", "Item   : \"+\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", ["s", "m"], "Space key to continue.", ["You find", "a "], "Check items", "<items> ", ["(There's", "not a", "item)"], [["It shows", "you the ", "directio", "n to the", "goal    ", "once and", "for all."], ["It will ", "show you", "the dire", "ction to", "go once ", "in the  ", "place.  "], ["You can", "see far", "away", "until", "you move", "50times."], ["You can", "only", "move", "once,", "ignoring", "walls."]], ["Use", "Dump ", "Exit"], ["Used", "Disposed", "Exited"], ["Specify", "a direct", "ion and", "press", "the", "spacebar."], ["↓", "→", "↑", "←"], ["There is", "a goal  ", "at"], ["Space", "key to", "continue"]]
+$Japanese = [["\"Dull\"これは迷路ゲームです。", "ゴールはランダムな場所にあります。", "辺りは暗くなっているので、", "近くしか見ることはできません。", "アイテムを駆使して", "ゴールにたどり着きましょう。"], "<操作方法>", "移動　　　　", "決定　　　　", "本当に終了しますか？", "終了しました", "言語 : 日本語", "終了　　　　", "やり直し　　", "キー", "キー", ["<迷路>", "プレイヤー　: \"%\"", "壁　　　　　: \"\#\"", "道　　　　　: \" \"", "ゴール　　　: \"\$\"", "アイテム　　: \"+\""], "スクロールできます", ["ゲームを始める", "Dullについて", "設定", "終了する"], ["本当に    ", "終了し    ", "ますか?   "], "はい", "いいえ", ["本当に    ", "やり直し   ", "ますか?   "], "クリア時間 : ", ["秒", "分"], "スペースキーでコンティニュー", ["発見した", ""], "持ち物を見る", "<持ち物>", ["(持ち物 ", "がありま", "せん)   "], [["ゴールへ", "の方角を", "一度だけ", "示してく", "れます"], ["使った場", "所におい", "て進むべ", "き方向を", "一度だけ", "示してく", "れます"], ["50回移動", "するまで", "視界が明", "くなりま", "す。"], ["一度だけ", "壁を無視", "して移動", "できます", "。"]], ["使う", "捨てる", "やめる"], ["使った", "捨てた", "やめた"], ["方向を指", "定してス", "ペースキ", "ーを押し", "てくださ", "い。"], ["↓", "→", "↑", "←"], ["ゴールは"], ["スペース", "キーでコ", "ンティニ", "ュー"], "もどる　　　", "矢印"]
+$English = [["\"Dull\" This is a maze game where", "you escape from a labyrinth.", "The goal is at the random place.", "It's dark, so you can only", "see up close.", "Use items to reach the goal."], "<Way to play>", "Move       ", "Deside     ", "Are you sure you want to exit?", "Ended", "Language : English", "Exit       ", "Retry      ", "key", "keys", ["<Maze>", "Player : \"%\"", "Block  : \"\#\"", "Route  : \" \"", "Goal   : \"\$\"", "Item   : \"+\""], "You can scroll", ["Start Game", "About Game", "Settings", "Exit"], ["Are you", "sure   ", "you    ", "want to",  "exit?  "], "Yes", "No", ["Are you", "sure   ", "you    ", "want to",  "retry? "], "Clear time : ", ["s", "m"], "Decide key to continue.", ["You find", "a "], "Check items", "<items> ", ["(There's", "not a", "item)"], [["It shows", "you the ", "directio", "n to the", "goal    ", "once and", "for all."], ["It will ", "show you", "the dire", "ction to", "go once ", "in the  ", "place.  "], ["You can", "see far", "away", "until", "you move", "50times."], ["You can", "only", "move", "once,", "ignoring", "walls."]], ["Use", "Dump ", "Exit"], ["Used", "Disposed", "Exited"], ["Specify", "a direct", "ion and", "press", "the", "decidebar."], ["↓", "→", "↑", "←"], ["There is", "a goal  ", "at"], ["Decide", "key to", "continue"], "Return     ", "Arrow"]
 $words = [$English, $Japanese]
 items_list = [["Exit", "", "compus", "navi", "torch", "ladder"], ["終了", "", "ｺﾝﾊﾟｽ", "ナビ", "松明", "はしご"]] # 半角6字以内
 $item_numbers = [2, 3, 4, 5]
@@ -62,25 +62,28 @@ def screen_convert_from_blank(inter)
   end
 end
 
-def wait_for_space
+def wait_for_decide
   while true
-    if keyin == "space"
+    if keyin == "decide"
       break
     end
   end
 end
 
 def keyin
-  $stdin.raw do |io|
-    ch = io.readbyte
-    keyinboards = [["a", "s", "d", "w", "space", "enter", "e", "r", "c"], [97, 115, 100, 119, 32, 13, 101, 114, 99]]
-    keyinboards[0][5] = "space"
-    if keyinboards[1].include?(ch.to_i)
-      return keyinboards[0][keyinboards[1].index(ch.to_i)]
-    else
-      return ""
-    end
+  ch = STDIN.getch
+  if ch.include?("M")
+    ch = "d"
+  elsif ch.include?("K")
+    ch = "a"
+  elsif ch.include?("H")
+    ch = "w"
+  elsif ch.include?("P")
+    ch = "s"
+  elsif ch == "z" || ch == " "
+    ch = "decide"
   end
+  return ch
 end
 
 def start
@@ -107,7 +110,7 @@ def start
       cursol_status = [0, cursol_status - 1].max
     elsif key == "s"
       cursol_status = [$starter.length - 1, cursol_status + 1].min
-    elsif key == "space"
+    elsif key == "decide"
       case cursol_status
         when 0
           break
@@ -117,18 +120,19 @@ def start
           putter_hozon = ["<#{$words[$language][13][1]}>", 
           *$words[$language][0], 
           "", 
-          *$words[$language][11], 
-          "", 
           "#{$words[$language][1]}", 
-          "#{$words[$language][2]} : WASD #{$words[$language][10]}", 
-          "#{$words[$language][3]} : Space #{$words[$language][9]}", 
+          "#{$words[$language][2]} : WASD & #{$words[$language][33]} #{$words[$language][10]}", 
+          "#{$words[$language][3]} : Z & space #{$words[$language][9]}", 
+          "#{$words[$language][32]} : X #{$words[$language][9]}", 
+          "#{$words[$language][22]} : C #{$words[$language][9]}", 
           "#{$words[$language][7]} : E #{$words[$language][9]}", 
           "#{$words[$language][8]} : R #{$words[$language][9]}", 
-          "#{$words[$language][22]} : C #{$words[$language][9]}", 
+          "", 
+          *$words[$language][11], 
           "", 
           "> #{$words[$language][13][3]}"]
           key = ""
-          while key != "space"
+          while key != "decide" && key != "x"
             putter = putter_hozon.clone
             if cutter != 0
               putter[0 + cutter] = "↑   ↑   ↑   ↑  (#{$words[$language][12]})"
@@ -172,7 +176,7 @@ def start
               up_down_status = 1
             elsif key == "s"
               up_down_status = 0
-            elsif key == "space"
+            elsif key == "decide"
               if up_down_status == 1
                 $language += 1
                 if $language == $words.length
@@ -181,12 +185,14 @@ def start
               else
                 break
               end
+            elsif key == "x"
+              break
             end
           end
         when 3
           $exiter = 0
           key = ""
-          while key != "space"
+          while key != "decide"
             clean
             puts("<#{$words[$language][13][3]}>", 
             "#{$words[$language][4]}", 
@@ -195,6 +201,9 @@ def start
               $exiter = 1
             elsif key == "s"
               $exiter = 0
+            elsif key == "x"
+              $exiter = 0
+              break
             end
             if $exiter == 1
               puts "> #{$words[$language][15]}"
@@ -377,7 +386,7 @@ def navi(maze, inter, nx, ny, cx, cy, ex, ey)
     end
   end
   end_placer = [">", "v", "<", "^"]
-  spacekey_to_continue(inter)
+  decidekey_to_continue(inter)
   return end_placer[end_place]
 end
 
@@ -417,7 +426,7 @@ def ladder(maze, inter, nx, ny, cx, cy, torch)
     elsif key == "d" && nx != maze[ny].length - 1 - 1
       maze[ny][nx + 1] = ">"
       way = 3
-    elsif key == "space" && way != -1
+    elsif key == "decide" && way != -1
       maze[ny + wayto[way][1]][nx + wayto[way][0]] = 0
       break
     end
@@ -449,15 +458,15 @@ def compus(maze, inter, nx, ny, goal)
   inter = right_screen(inter, righter + [$words[$language][29][angler]] + $words[$language][31])
   clean
   puts inter
-  wait_for_space
+  wait_for_decide
 end
 
-def spacekey_to_continue(inter)
+def decidekey_to_continue(inter)
   inter = right_clean(inter)
   inter = right_screen(inter, [$words[$language][27][0]] + $words[$language][31])
   clean
   puts inter
-  wait_for_space
+  wait_for_decide
 end
 
 $language = 0
@@ -498,6 +507,14 @@ while true # mainloop
     else
       cy = ny - 6
     end
+    if $item_numbers.include?(maze[ny][nx])
+      for i in 0..$words[$language][21].length - 1 - 1
+        inter[i][27..34] = "#{$words[$language][21][i]}"
+      end
+      inter[$words[$language][21].length - 1][27..34] = "#{$words[$language][21][-1]}" + items_list[$language][maze[ny][nx]]
+      items.push(maze.clone[ny][nx])
+      maze[ny][nx] = 0
+    end
     clean
     inter_hozon = inter.clone
     inter = screen(maze, nx, ny, cx, cy, torch)
@@ -534,8 +551,8 @@ while true # mainloop
         ender = 2
       elsif key == "w"
         ender = 1
-      elsif key == "space"
-        if ender == 1
+      elsif key == "decide" || key == "x"
+        if ender == 1 && key != "x"
           break
         else
           for i in 0..12 - 1
@@ -563,8 +580,8 @@ while true # mainloop
         retryer = 2
       elsif key == "w"
         retryer = 1
-      elsif key == "space"
-        if retryer == 1
+      elsif key == "decide" || key == "x"
+        if retryer == 1 || key == "x"
           retryer = 0 
           nx, ny = 1, 1
           for i in 0..12 - 1
@@ -596,7 +613,7 @@ while true # mainloop
         items.push(0) # exit
         if items.length == 1
           righter += $words[$language][24]
-          righter.push(" >" + $words[$language][7])
+          righter.push("> " + $words[$language][7])
         else
           for i in 0..[items.length, 10].min - 1
             if cursol_status == i
@@ -615,7 +632,7 @@ while true # mainloop
           cursol_status -= 1
         elsif key == "s" && cursol_status != items.length
           cursol_status += 1
-        elsif key == "space"
+        elsif key == "decide"
           if cursol_status == items.length + 1 - 1
             inter = right_clean(inter)
             break
@@ -648,56 +665,47 @@ while true # mainloop
                 cursol_status_local -= 1
               elsif key == "s" && cursol_status_local != $words[$language][26].length - 1
                 cursol_status_local += 1
-              elsif key == "space"
-                case cursol_status_local
-                  when 0
-                    if items[cursol_status] == 2
-                      compus(maze, inter, nx, ny, goal)
-                    elsif items[cursol_status] == 3
-                      maze[ny][nx] = navi(maze, inter, nx, ny, cx, cy, goal[0], goal[1])
-                    elsif items[cursol_status] == 4
-                      torch += 50
-                      inter = screen(maze, nx, ny, cx, cy, torch)
+              elsif key == "decide" || key == "x"
+                if key == "decide"
+                  case cursol_status_local
+                    when 0
+                      if items[cursol_status] == 2
+                        compus(maze, inter, nx, ny, goal)
+                      elsif items[cursol_status] == 3
+                        maze[ny][nx] = navi(maze, inter, nx, ny, cx, cy, goal[0], goal[1])
+                      elsif items[cursol_status] == 4
+                        torch += 50
+                        inter = screen(maze, nx, ny, cx, cy, torch)
+                        clean
+                        puts inter
+                      elsif items[cursol_status] = 5
+                        nx, ny = ladder(maze, inter, nx, ny, cx, cy, torch)
+                        inter = screen(maze, nx, ny, cx, cy, torch)
+                        clean
+                      end
+                      items.delete_at(cursol_status)
+                    when 1
+                      items.delete_at(cursol_status)
+                      inter = right_clean(inter)
+                      inter[0][27..34] = $words[$language][27][1]
                       clean
                       puts inter
-                    elsif items[cursol_status] = 5
-                      nx, ny = ladder(maze, inter, nx, ny, cx, cy, torch)
-                      inter = screen(maze, nx, ny, cx, cy, torch)
-                      clean
-                    end
-                    items.delete_at(cursol_status)
-                  when 1
-                    items.delete_at(cursol_status)
-                    inter = right_clean(inter)
-                    inter[0][27..34] = $words[$language][27][1]
-                    clean
-                    puts inter
-                    wait_for_space
+                      wait_for_decide
+                  end
                 end
                 break
               end
             end
           end
-        elsif key == "c"
+        elsif key == "c" || key == "x"
           inter = right_clean(inter)
           break
         end
       end
     end
-
-
-    if $item_numbers.include?(maze[ny][nx])
-      for i in 0..$words[$language][21].length - 1 - 1
-        inter[i][27..34] = "#{$words[$language][21][i]}"
-      end
-      inter[$words[$language][21].length - 1][27..34] = "#{$words[$language][21][-1]}" + items_list[$language][maze[ny][nx]]
-      items.push(maze.clone[ny][nx])
-      maze[ny][nx] = 0
-    end
   end
   if ender == 0
     times = Time.now - timer
-    sleep(0.5)
     screen_convert_to_blank(inter)
     clean
     s = times.round(2)
@@ -705,7 +713,7 @@ while true # mainloop
     s = (s % 60).round(2)
     puts "#{$words[$language][18]}#{m}#{$words[$language][19][1]} #{s}#{$words[$language][19][0]}"
     puts "#{$words[$language][20]}"
-    wait_for_space
+    wait_for_decide
   else
     sleep(0.5)
     screen_convert_to_blank(inter)
