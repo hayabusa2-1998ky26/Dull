@@ -1,3 +1,3 @@
 ### || Way to play  
-Move : WASD  
-Decide : space
+Move : WASD or Arrow keys  
+Decide : space or Z key
