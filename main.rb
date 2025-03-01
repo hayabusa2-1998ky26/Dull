@@ -74,6 +74,7 @@ def keyin
   $stdin.raw do |io|
     ch = io.readbyte
     keyinboards = [["a", "s", "d", "w", "space", "enter", "e", "r", "c"], [97, 115, 100, 119, 32, 13, 101, 114, 99]]
+    keyinboards[0][5] = "space"
     if keyinboards[1].include?(ch.to_i)
       return keyinboards[0][keyinboards[1].index(ch.to_i)]
     else
