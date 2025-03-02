@@ -706,6 +706,7 @@ while true # mainloop
   end
   if ender == 0
     times = Time.now - timer
+    sleep(0.5)
     screen_convert_to_blank(inter)
     clean
     s = times.round(2)
